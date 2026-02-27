@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience | Cathy Dela Cruz</title>
+    <link rel="icon" href="portfolio.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom animate-up delay-4" id="main-nav">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html">Cathy.</a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="resume.html">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Me</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="fixed-image-wrapper dock-left" id="sticky-img">
+        <img src="model1.jpg" alt="Cathy Dela Cruz" id="hero-img" class="img-wipe-reveal">
+    </div>
+
+    <div class="scroll-container" id="scroll-wrapper">
+        
+        <section class="hero-section" style="padding-left: 0; padding-right: 5vw; align-items: flex-end; text-align: right;">
+            <div class="animate-up delay-1"><h1 class="title-first">Professional</h1></div>
+            <div class="animate-up delay-2"><h1 class="title-last">Background</h1></div>
+            <div class="animate-up delay-3 mt-4"><p class="fs-5 text-muted">Bridging the gap between corporate CSR and startup administration.</p></div>
+        </section>
+
+        <section class="scroll-section">
+            <div class="container-fluid p-0">
+                <div class="row m-0">
+                    <div class="col-12 col-lg-6 col-xl-5 ms-auto p-0 ps-lg-5">
+                        
+                        <div class="content-block">
+                            <h2 class="section-label"><span>01</span> Work History</h2>
+                            <div class="mt-5">
+                                <div class="d-flex justify-content-between align-items-baseline mb-2 flex-wrap">
+                                    <h4 class="fw-bold text-light mb-0">Customer Success Specialist</h4>
+                                    <span class="badge border border-secondary text-muted rounded-pill px-3 py-2">2019 – 2023</span>
+                                </div>
+                                <h6 class="text-uppercase text-muted fw-bold mb-4" style="font-size: 0.8rem; letter-spacing: 1px;">Corporate BGC, Metro Manila</h6>
+                                <ul class="text-muted fs-6" style="line-height: 1.8; padding-left: 1.2rem;">
+                                    <li class="mb-3"><strong class="text-light">Client & Inbox Management:</strong> Managed 50+ complex client inquiries daily via omnichannel platforms, maintaining a 98% customer satisfaction rating.</li>
+                                    <li class="mb-3"><strong class="text-light">Data & CRM Navigation:</strong> Operated internal software to track interactions, update account details, and process requests.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="content-block">
+                            <h2 class="section-label"><span>02</span> Software Proficiency</h2>
+                            <div class="row g-3 mt-3">
+                                <div class="col-6"><div class="p-3 border border-secondary rounded text-center text-light fw-bold">G Suite</div></div>
+                                <div class="col-6"><div class="p-3 border border-secondary rounded text-center text-light fw-bold">Slack / Teams</div></div>
+                                <div class="col-6"><div class="p-3 border border-secondary rounded text-center text-light fw-bold">Zendesk</div></div>
+                                <div class="col-6"><div class="p-3 border border-secondary rounded text-center text-light fw-bold">Asana</div></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div style="height: 15vh;"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const scrollWrapper = document.getElementById('scroll-wrapper');
+        const imgWrapper = document.getElementById('sticky-img');
+        const img = document.getElementById('hero-img');
+        const nav = document.getElementById('main-nav');
+        let targetScroll = 0; let currentScroll = 0; const ease = 0.06; 
+
+        function setBodyHeight() { document.body.style.height = `${scrollWrapper.getBoundingClientRect().height}px`; }
+        window.addEventListener('resize', setBodyHeight);
+        setTimeout(setBodyHeight, 500); 
+
+        window.addEventListener('scroll', () => { targetScroll = window.scrollY; });
+        function lerp(start, end, factor) { return start + (end - start) * factor; }
+
+        function render() {
+            currentProgress = lerp(currentScroll, targetScroll, ease);
+            currentScroll = currentProgress;
+            scrollWrapper.style.transform = `translateY(-${currentScroll}px)`;
+
+            let animationProgress = Math.min(currentScroll / 800, 1);
+            const isMobile = window.innerWidth < 992;
+            
+            if (!isMobile) {
+                // Shrinking the width while docked left creates the left-side split screen
+                const width = 100 - (animationProgress * 55);
+                imgWrapper.style.width = width + 'vw';
+                if (currentScroll > 10) { img.style.transform = `scale(${1 + (animationProgress * 0.05)})`; }
+                img.style.opacity = 1;
+            } else {
+                imgWrapper.style.width = '100vw';
+                img.style.opacity = 1 - (animationProgress * 0.75); 
+            }
+
+            if(currentScroll > 50) {
+                nav.style.background = 'rgba(0,0,0,0.8)';
+                nav.style.backdropFilter = 'blur(10px)';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.backdropFilter = 'none';
+            }
+            requestAnimationFrame(render);
+        }
+        render();
+    </script>
+</body>
+</html>
